@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 from api.views import ArticuloViewSet
 
 router = DefaultRouter()
-router.register('articulos', ArticuloViewSet, basename='articulos')
+router.register('articulo', ArticuloViewSet, basename='articulos')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
