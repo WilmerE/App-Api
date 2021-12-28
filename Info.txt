@@ -1,0 +1,47 @@
+Admin
+root123/*-
+
+
+
+
+
+
+
+
+
+
+
+C:\DJANGO\ApiApp>workon app
+((app) ) C:\DJANGO\ApiApp>manage.py shell
+Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from api.serializers import ArticuloSerializer
+>>> from rest_framework.renderers import JSONRenderer
+>>> from rest_framework.parsers import JSONParser
+>>> a = Articulo(titulo = "Otro articulo", descripcion = "Otra descripcion")
+>>> a.save()
+>>> serializer = ArticuloSerializer(a)
+>>> serializer.data
+{'titulo': 'Otro articulo', 'descripcion': 'Otra descripcion'}
+>>> json = JSONRenderer().render(serializer.data)
+>>> json
+b'{"titulo":"Otro articulo","descripcion":"Otra descripcion"}'
+>>> import io
+>>> stream = io.BytesIO(json)
+>>> data = JSONParser().parse(stream)
+>>> serializer = ArticuloSerializer(data=data)
+>>> serializer.is_valid()
+True
+>>> serializer.validated_data
+OrderedDict([('titulo', 'Otro articulo'), ('descripcion', 'Otra descripcion')])
+
+
+>>> from api.serializers import ArticuloSerializer
+>>> serializer = ArticuloSerializer()
+>>> print(repr(serializer))
+ArticuloSerializer():
+    id = IntegerField(label='ID', read_only=True)
+    titulo = CharField(max_length=100)
+    descripcion = CharField(style={'base_template': 'textarea.html'})
+>>>
